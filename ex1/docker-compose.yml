@@ -1,8 +1,15 @@
 services:
   kotlin-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: blato122/ex1
     container_name: kotlin-hello-world
     environment:
       - TZ=Europe/Warsaw
+
+# services:
+#   kotlin-app:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     container_name: kotlin-hello-world
+#     environment:
+#       - TZ=Europe/Warsaw
