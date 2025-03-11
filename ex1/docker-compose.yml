@@ -1,0 +1,8 @@
+services:
+  kotlin-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kotlin-hello-world
+    environment:
+      - TZ=Europe/Warsaw
