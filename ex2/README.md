@@ -21,9 +21,9 @@ show by id (get), update (put), delete (delete), add (post).
 **Link: https://hub.docker.com/r/blato122/ex2**
 
 **Pull the latest image from Docker Hub:**
-    * Pull the latest image from Docker Hub: docker pull blato122/ex2
-    * Run the container: docker run -d -p 9000:9000 --name ex2 blato122/ex2
-    * Test the endpoints at http://localhost:9000/ENDPOINT (or curl http://localhost:9000/ENDPOINT)
+* Pull the latest image from Docker Hub: docker pull blato122/ex2
+* Run the container: docker run -d -p 9000:9000 --name ex2 blato122/ex2
+* Test the endpoints at http://localhost:9000/ENDPOINT (or curl http://localhost:9000/ENDPOINT)
 
 **Run with ngrok using docker compose:** 
 * An ngrok token in the .env file is required!
