@@ -1,0 +1,19 @@
+services:
+  ex2:
+    image: blato122/ex2
+    ports:
+      - 9000:9000
+    container_name: ex2
+    environment:
+      - TZ=Europe/Warsaw
+
+  ngrok:
+    image: ngrok/ngrok
+    ports:
+      - "4040:4040"
+    command: [ "http", "--host-header=rewrite", "ex2:9000" ]
+    depends_on:
+      - ex2
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTH_TOKEN} 
+      - TZ=Europe/Warsaw

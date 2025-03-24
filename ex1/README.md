@@ -15,4 +15,4 @@ przez CMD oraz gradle
 Obraz należy wysłać na hub.docker.com, a link do obrazu należy dodać w
 README na githubie.
 
-**link: https://hub.docker.com/r/blato122/ex1**
+**Link: https://hub.docker.com/r/blato122/ex1**

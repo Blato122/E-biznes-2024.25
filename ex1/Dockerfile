@@ -26,11 +26,8 @@ ENV PATH=$PATH:/root/.sdkman/candidates/gradle/current/bin
 # 4.0:
 
 RUN mkdir -p /app/src/main/kotlin/
-# Add project files
 WORKDIR /app
-# Create build.gradle
 COPY build.gradle /app/
-# Directory for your kotlin source files
 WORKDIR /app
 
 # 4.5:
@@ -41,5 +38,3 @@ COPY src/main/kotlin/Main.kt /app/src/main/kotlin/
 RUN gradle build
 # two ways to run the application
 CMD ["bash", "-c", "echo 'Running with Kotlin compiler:' && kotlin -classpath /app/build/classes/kotlin/main MainKt && echo '\nRunning with Gradle:' && gradle run"]
-
-# remove previous builds!!!
