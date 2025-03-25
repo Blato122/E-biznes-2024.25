@@ -34,7 +34,7 @@ Webex
    - Go to the "Bot" tab and create a bot
    - Copy the bot token
    - Under "OAuth2 > URL Generator", select "bot" scope and "Send Messages" permission
-        - URI from "Redirects" worked as well
+        - URI from "Redirects" worked as well: use channel ID as client_id
    - Use the generated URL to invite the bot to your server
 
 **Get your Discord channel ID:**
