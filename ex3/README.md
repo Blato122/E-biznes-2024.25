@@ -8,7 +8,7 @@ platformy Discord skierowane do aplikacji (bota)
 
 - :white_check_mark: 4.0 Zwróci listę kategorii na określone żądanie użytkownika
 
-- :white_check_mark: 4.5 Zwróci listę produktów wg żądanej kategorii
+- :white_check_mark: 4.5 Zwróci listę produktów wg żądanej kategorii - [Link do commita 4] https://github.com/Blato122/E-biznes-2024.25/commit/3372ff1b7b7cb40454490a31ed671434683b2f62
 
 - :x: 5.0 Aplikacja obsłuży dodatkowo jedną z platform: Slack, Messenger,
 Webex
