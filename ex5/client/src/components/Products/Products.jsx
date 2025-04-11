@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getProducts } from '../../services/api';
+import './Products.css';
 
-const Products = () => {
+const Products = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -25,14 +26,20 @@ const Products = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div>
+    <div className="products-container">
       <h2>Products</h2>
       <div className="products-grid">
         {products.map(product => (
           <div key={product.id} className="product-card">
             <h3>{product.name}</h3>
-            <p>{product.description}</p>
-            <p>Price: ${product.price}</p>
+            <p className="product-description">{product.description}</p>
+            <p className="product-price">${product.price.toFixed(2)}</p>
+            <button 
+              className="add-to-cart-button"
+              onClick={() => addToCart(product)}
+            >
+              Add to Cart
+            </button>
           </div>
         ))}
       </div>

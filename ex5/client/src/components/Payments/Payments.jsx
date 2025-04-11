@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { sendPayment } from '../../services/api';
+import './Payments.css';
 
-const Payments = () => {
+const Payments = ({ cartItems, clearCart }) => {
+  const navigate = useNavigate();
   const [paymentData, setPaymentData] = useState({
     cardNumber: '',
     expiryDate: '',
     cvv: '',
     name: '',
-    amount: ''
   });
   const [status, setStatus] = useState(null);
+
+  // Calculate total amount from cart items
+  const totalAmount = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity, 
+    0
+  ).toFixed(2);
 
   const handleChange = (e) => {
     setPaymentData({
@@ -23,7 +31,13 @@ const Payments = () => {
     setStatus('processing');
     
     try {
-      await sendPayment(paymentData);
+      // Send payment with cart details
+      await sendPayment({
+        ...paymentData,
+        amount: totalAmount,
+        items: cartItems
+      });
+      
       setStatus('success');
       // Reset form
       setPaymentData({
@@ -31,20 +45,68 @@ const Payments = () => {
         expiryDate: '',
         cvv: '',
         name: '',
-        amount: ''
       });
+      
+      // Clear the cart after successful payment
+      clearCart();
+      
+      // Redirect to success page or products after a short delay
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
     } catch (error) {
       setStatus('error');
     }
   };
 
+  if (cartItems.length === 0) {
+    return (
+      <div className="payment-container">
+        <h2>Payment</h2>
+        <p className="empty-cart-message">Your cart is empty. Add some products first.</p>
+        <button 
+          className="back-to-products"
+          onClick={() => navigate('/')}
+        >
+          Back to Products
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <div className="payment-container">
       <h2>Payment</h2>
-      {status === 'success' && <div className="success-message">Payment successful!</div>}
-      {status === 'error' && <div className="error-message">Payment failed. Please try again.</div>}
       
-      <form onSubmit={handleSubmit}>
+      <div className="order-summary">
+        <h3>Order Summary</h3>
+        <ul className="order-items">
+          {cartItems.map(item => (
+            <li key={item.id} className="order-item">
+              <span>{item.name} x {item.quantity}</span>
+              <span>${(item.price * item.quantity).toFixed(2)}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="order-total">
+          <span>Total:</span>
+          <span>${totalAmount}</span>
+        </div>
+      </div>
+      
+      {status === 'success' && (
+        <div className="success-message">
+          Payment successful! Redirecting to products...
+        </div>
+      )}
+      
+      {status === 'error' && (
+        <div className="error-message">
+          Payment failed. Please check your details and try again.
+        </div>
+      )}
+      
+      <form onSubmit={handleSubmit} className="payment-form">
         <div className="form-group">
           <label htmlFor="name">Cardholder Name</label>
           <input
@@ -65,6 +127,7 @@ const Payments = () => {
             name="cardNumber"
             value={paymentData.cardNumber}
             onChange={handleChange}
+            placeholder="1234 5678 9012 3456"
             required
           />
         </div>
@@ -96,21 +159,22 @@ const Payments = () => {
           </div>
         </div>
         
-        <div className="form-group">
-          <label htmlFor="amount">Amount ($)</label>
-          <input
-            type="number"
-            id="amount"
-            name="amount"
-            value={paymentData.amount}
-            onChange={handleChange}
-            required
-          />
+        <div className="payment-actions">
+          <button 
+            type="button" 
+            className="back-button"
+            onClick={() => navigate('/cart')}
+          >
+            Back to Cart
+          </button>
+          <button 
+            type="submit" 
+            className="pay-button"
+            disabled={status === 'processing'}
+          >
+            {status === 'processing' ? 'Processing...' : `Pay $${totalAmount}`}
+          </button>
         </div>
-        
-        <button type="submit" disabled={status === 'processing'}>
-          {status === 'processing' ? 'Processing...' : 'Pay Now'}
-        </button>
       </form>
     </div>
   );
