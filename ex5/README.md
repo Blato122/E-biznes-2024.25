@@ -8,7 +8,7 @@ z aplikacji serwerowej. Aplikacja serwera w jednym z trzech języków:
 Kotlin, Scala, Go. Dane pomiędzy wszystkimi komponentami powinny być
 przesyłane za pomocą React hooks.
 
-- :white_check_mark: 3.0 W ramach projektu należy stworzyć dwa komponenty: Produkty oraz
+- :x: 3.0 W ramach projektu należy stworzyć dwa komponenty: Produkty oraz
 Płatności; Płatności powinny wysyłać do aplikacji serwerowej dane, a w
 Produktach powinniśmy pobierać dane o produktach z aplikacji
 serwerowej;
