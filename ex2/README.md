@@ -13,7 +13,7 @@ zgodnie z CRUD
 - :white_check_mark: 4.5 Należy aplikację uruchomić na dockerze (stworzyć obraz) oraz dodać
 skrypt uruchamiający aplikację via ngrok
 
-- :white_check_mark: 5.0 Należy dodać konfigurację CORS dla dwóch hostów dla metod CRUD
+- :white_check_mark: 5.0 Należy dodać konfigurację CORS dla dwóch hostów dla metod CRUD - [Link do commita 5](https://github.com/Blato122/E-biznes-2024.25/commit/84dc0c96f910da46957ea96edf113cfe52695a8d)
 
 Kontrolery mogą bazować na listach zamiast baz danych. CRUD: show all,
 show by id (get), update (put), delete (delete), add (post).
