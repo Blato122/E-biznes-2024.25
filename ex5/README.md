@@ -17,6 +17,6 @@ serwerowej; - [Link do commita 1](https://github.com/Blato122/E-Biznes-2024.25/c
 pomocą React hooks - [Link do commita 3](https://github.com/Blato122/E-Biznes-2024.25/commit/4c13670e2ddfc7465831f250d0e06120d6683eb8)
 - :white_check_mark: 4.5 Należy dodać skrypt uruchamiający aplikację serwerową oraz
 kliencką na dockerze via docker-compose - [Link do commita 4](https://github.com/Blato122/E-Biznes-2024.25/commit/eb50928c76e556481754d37145f39f528d2f2e9f)
-- :white_check_mark: 5.0 Należy wykorzystać axios’a oraz dodać nagłówki pod CORS - [Link do commita 5](https://github.com/Blato122/E-Biznes-2024.25/commit/)
+- :white_check_mark: 5.0 Należy wykorzystać axios’a oraz dodać nagłówki pod CORS - [Link do commita 5](https://github.com/Blato122/E-Biznes-2024.25/commit/0a61085b5bf7d64bbfd25f89d4e9eab25327b4a8)
 
 Kod: ex5
