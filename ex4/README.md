@@ -11,7 +11,7 @@ miała kontroler Produktów zgodny z CRUD - [Link do commita 1](https://github.c
 - :white_check_mark: 3.5 Należy stworzyć model Produktów wykorzystując gorm oraz
 wykorzystać model do obsługi produktów (CRUD) w kontrolerze (zamiast
 listy) - [Link do commita 2](https://github.com/Blato122/E-Biznes-2024.25/commit/45c2118416dd3da02bd4834e3db465a1ceab4b54)
-- :x: 4.0 Należy dodać model Koszyka oraz dodać odpowiedni endpoint
+- :white_check_mark: 4.0 Należy dodać model Koszyka oraz dodać odpowiedni endpoint - [Link do commita 3](https://github.com/Blato122/E-Biznes-2024.25/commit/f77a44b9e445758d4dbc97696b4d65541215e085)
 - :x: 4.5 Należy stworzyć model kategorii i dodać relację między kategorią,
 a produktem
 - :x: 5.0 pogrupować zapytania w gorm’owe scope'y
