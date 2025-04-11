@@ -18,18 +18,19 @@ func Init() {
         log.Fatal("Failed to connect to database:", err)
     }
     
-    err = DB.AutoMigrate(&models.Product{})
+    // Auto-migrate both Product and CartItem models
+    err = DB.AutoMigrate(&models.Product{}, &models.CartItem{})
     if err != nil {
         log.Fatal("Failed to migrate database:", err)
     }
     
-    var count int64
-    DB.Model(&models.Product{}).Count(&count)
-    if count == 0 {
+    var productCount int64
+    DB.Model(&models.Product{}).Count(&productCount)
+    if productCount == 0 {
         products := []models.Product{
-            {Name: "Laptop", Description: "High performance laptop", Price: 999.99},
-            {Name: "Smartphone", Description: "Latest smartphone model", Price: 699.99},
-            {Name: "Headphones", Description: "Noise cancelling headphones", Price: 199.99},
+            {Name: "PC", Description: "High performance GPU", Price: 4999.99},
+            {Name: "Smartphone", Description: "Latest smartphone model", Price: 899.99},
+            {Name: "Smartwatch", Description: "Easily track your workouts", Price: 199.99},
         }
         
         for _, product := range products {
