@@ -18,19 +18,34 @@ func Init() {
         log.Fatal("Failed to connect to database:", err)
     }
     
-    // Auto-migrate both Product and CartItem models
-    err = DB.AutoMigrate(&models.Product{}, &models.CartItem{})
+    // Auto-migrate models
+    err = DB.AutoMigrate(&models.Category{}, &models.Product{}, &models.CartItem{})
     if err != nil {
         log.Fatal("Failed to migrate database:", err)
+    }
+    
+    var categoryCount int64
+    DB.Model(&models.Category{}).Count(&categoryCount)
+    if categoryCount == 0 {
+        categories := []models.Category{
+            {Name: "Electronics", Description: "Electronic devices and gadgets"},
+            {Name: "Home", Description: "Home goods and furniture"},
+        }
+        
+        for _, category := range categories {
+            DB.Create(&category)
+        }
     }
     
     var productCount int64
     DB.Model(&models.Product{}).Count(&productCount)
     if productCount == 0 {
         products := []models.Product{
-            {Name: "PC", Description: "High performance GPU", Price: 4999.99},
-            {Name: "Smartphone", Description: "Latest smartphone model", Price: 899.99},
-            {Name: "Smartwatch", Description: "Easily track your workouts", Price: 199.99},
+            {Name: "PC", Description: "High performance GPU", Price: 4999.99, CategoryID: 1},
+            {Name: "Smartphone", Description: "Latest smartphone model", Price: 899.99, CategoryID: 1},
+            {Name: "Smartwatch", Description: "Easily track your workouts", Price: 199.99, CategoryID: 1},
+            {Name: "Wardrobe", Description: "A beautiful, old wardrobe", Price: 1999.99, CategoryID: 2},
+            {Name: "Desk lamp", Description: "Adjustable LED desk lamp", Price: 49.99, CategoryID: 2},
         }
         
         for _, product := range products {

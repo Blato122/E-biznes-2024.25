@@ -22,6 +22,14 @@ func main() {
     e.PUT("/products/:id", controllers.UpdateProduct)
     e.DELETE("/products/:id", controllers.DeleteProduct)
 
+    // Category routes
+    e.GET("/categories", controllers.GetCategories)
+    e.GET("/categories/:id", controllers.GetCategory)
+    e.GET("/categories/:id/products", controllers.GetCategoryProducts)
+    e.POST("/categories", controllers.CreateCategory)
+    e.PUT("/categories/:id", controllers.UpdateCategory)
+    e.DELETE("/categories/:id", controllers.DeleteCategory)
+
     // Cart routes
     e.GET("/cart", controllers.GetCartItems)
     e.GET("/cart/:id", controllers.GetCartItem)
