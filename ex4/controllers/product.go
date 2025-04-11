@@ -9,10 +9,43 @@ import (
     "github.com/Blato122/E-biznes-2024.25/ex4/models"
 )
 
-// GetProducts returns all products
+// GetProducts returns all products with optional filtering
 func GetProducts(c echo.Context) error {
     var products []models.Product
-    result := database.DB.Find(&products)
+    db := database.DB
+    
+    // Apply category filter if specified
+    if categoryID := c.QueryParam("category"); categoryID != "" {
+        catID, err := strconv.ParseUint(categoryID, 10, 32)
+        if err == nil {
+            db = db.Scopes(database.ProductsByCategory(uint(catID)))
+        }
+    }
+    
+    // Apply price range filter if specified
+    minPrice := c.QueryParam("min_price")
+    maxPrice := c.QueryParam("max_price")
+    if minPrice != "" && maxPrice != "" {
+        min, errMin := strconv.ParseFloat(minPrice, 64)
+        max, errMax := strconv.ParseFloat(maxPrice, 64)
+        if errMin == nil && errMax == nil {
+            db = db.Scopes(database.PriceRange(min, max))
+        }
+    }
+    
+    // Apply pagination
+    page, _ := strconv.Atoi(c.QueryParam("page"))
+    if page <= 0 {
+        page = 1
+    }
+    pageSize, _ := strconv.Atoi(c.QueryParam("page_size"))
+    if pageSize <= 0 || pageSize > 100 {
+        pageSize = 10
+    }
+    db = db.Scopes(database.Paginate(page, pageSize))
+    
+    // Execute the query with all applied scopes
+    result := db.Find(&products)
     if result.Error != nil {
         return c.JSON(http.StatusInternalServerError, map[string]string{"error": result.Error.Error()})
     }

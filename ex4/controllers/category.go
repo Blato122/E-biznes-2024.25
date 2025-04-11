@@ -43,13 +43,18 @@ func GetCategoryProducts(c echo.Context) error {
         return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid ID"})
     }
     
+    // Check if category exists
     var category models.Category
-    result := database.DB.Preload("Products").First(&category, id)
+    result := database.DB.First(&category, id)
     if result.Error != nil {
         return c.JSON(http.StatusNotFound, map[string]string{"error": "Category not found"})
     }
     
-    return c.JSON(http.StatusOK, category.Products)
+    // Use the scope to get products by category
+    var products []models.Product
+    database.DB.Scopes(database.ProductsByCategory(uint(id))).Find(&products)
+    
+    return c.JSON(http.StatusOK, products)
 }
 
 // Creates a new category
