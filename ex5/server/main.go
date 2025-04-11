@@ -30,42 +30,63 @@ var products = []Product{
 }
 
 func main() {
-	http.HandleFunc("/products", handleProducts)
-	http.HandleFunc("/payments", handlePayments)
+	http.HandleFunc("/products", corsMiddleware(handleProducts))
+	http.HandleFunc("/payments", corsMiddleware(handlePayments))
+	http.HandleFunc("/health", corsMiddleware(handleHealth))
 
-	handler := enableCORS(http.DefaultServeMux)
-
-	log.Println("Server starting on :8080...")
-	log.Fatal(http.ListenAndServe(":8080", handler))
+	port := "8080"
+	log.Printf("Server starting on port %s...\n", port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
-func enableCORS(h http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+func corsMiddleware(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("Request received: %s %s from %s", r.Method, r.URL.Path, r.RemoteAddr)
+
+		w.Header().Set("Access-Control-Allow-Origin", "*") // allow any origin
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept")
+		w.Header().Set("Access-Control-Max-Age", "3600") // cache preflight for 1 hour
 
 		if r.Method == "OPTIONS" {
+			log.Println("Handling preflight request")
 			w.WriteHeader(http.StatusOK)
 			return
 		}
 
-		h.ServeHTTP(w, r)
-	})
+		// process the request
+		next(w, r)
+	}
 }
 
+// handles health check endpoint
+func handleHealth(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"status": "healthy"})
+}
+
+// handles GET requests for products
 func handleProducts(w http.ResponseWriter, r *http.Request) {
+	log.Println("Handling products request")
 	if r.Method != http.MethodGet {
+		log.Printf("Method not allowed: %s", r.Method)
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(products)
+	log.Printf("Sending product data with %d products", len(products))
+	err := json.NewEncoder(w).Encode(products)
+	if err != nil {
+		log.Printf("Error encoding products: %v", err)
+	}
 }
 
+// handles POST requests for payments
 func handlePayments(w http.ResponseWriter, r *http.Request) {
+	log.Println("Handling payments request")
 	if r.Method != http.MethodPost {
+		log.Printf("Method not allowed: %s", r.Method)
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
@@ -73,12 +94,14 @@ func handlePayments(w http.ResponseWriter, r *http.Request) {
 	var payment Payment
 	err := json.NewDecoder(r.Body).Decode(&payment)
 	if err != nil {
+		log.Printf("Error decoding payment: %v", err)
 		http.Error(w, "Invalid request body", http.StatusBadRequest)
 		return
 	}
 
-	log.Printf("Payment received: %+v\n", payment)
+	log.Printf("Payment received: %+v", payment)
 
+	// success response
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{"status": "success"})
