@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { sendPayment } from '../../services/api';
+import { useCart } from '../../contexts/CartContext';
 import './Payments.css';
 
-const Payments = ({ cartItems, clearCart }) => {
+const Payments = () => {
   const navigate = useNavigate();
+  const { cartItems, clearCart } = useCart();
+  
   const [paymentData, setPaymentData] = useState({
     cardNumber: '',
     expiryDate: '',
@@ -13,7 +16,7 @@ const Payments = ({ cartItems, clearCart }) => {
   });
   const [status, setStatus] = useState(null);
 
-  // Calculate total amount from cart items
+  // calculate total amount from cart items
   const totalAmount = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity, 
     0
@@ -31,7 +34,7 @@ const Payments = ({ cartItems, clearCart }) => {
     setStatus('processing');
     
     try {
-      // Send payment with cart details
+      // send with cart details
       await sendPayment({
         ...paymentData,
         amount: totalAmount,
@@ -47,10 +50,10 @@ const Payments = ({ cartItems, clearCart }) => {
         name: '',
       });
       
-      // Clear the cart after successful payment
+      // clear after successful payment
       clearCart();
       
-      // Redirect to success page or products after a short delay
+      // redirect to success page or products after a short delay
       setTimeout(() => {
         navigate('/');
       }, 3000);

@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useCart } from '../../contexts/CartContext';
 import './Navigation.css';
 
-const Navigation = ({ cartItemsCount }) => {
+const Navigation = () => {
   const location = useLocation();
+  const { cartItemsCount } = useCart();
 
   return (
     <nav className="navbar">

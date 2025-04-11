@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useCart } from '../../contexts/CartContext';
 import './Cart.css';
 
-const Cart = ({ cartItems, removeFromCart }) => {
-  // Calculate total price
+const Cart = () => {
+  const { cartItems, removeFromCart } = useCart();
+  
+  // calculate total price
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   if (cartItems.length === 0) {

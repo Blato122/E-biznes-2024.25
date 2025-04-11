@@ -1,26 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { getProducts } from '../../services/api';
+import React from 'react';
+import { useProducts } from '../../contexts/ProductsContext';
+import { useCart } from '../../contexts/CartContext';
 import './Products.css';
 
-const Products = ({ addToCart }) => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const data = await getProducts();
-        setProducts(data);
-        setLoading(false);
-      } catch (err) {
-        setError('Failed to fetch products');
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
+const Products = () => {
+  const { products, loading, error } = useProducts();
+  const { addToCart } = useCart();
 
   if (loading) return <div>Loading products...</div>;
   if (error) return <div>{error}</div>;
