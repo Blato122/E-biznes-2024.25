@@ -1,19 +1,23 @@
 **Zadanie 3**
 
-- [x] 3.0 Należy stworzyć aplikację kliencką w Kotlinie we frameworku Ktor,
+- :white_check_mark: 3.0 Należy stworzyć aplikację kliencką w Kotlinie we frameworku Ktor,
 która pozwala na przesyłanie wiadomości na platformę Discord
 
-- [x] 3.5 Aplikacja jest w stanie odbierać wiadomości użytkowników z
+- :white_check_mark: 3.5 Aplikacja jest w stanie odbierać wiadomości użytkowników z
 platformy Discord skierowane do aplikacji (bota)
 
-- [x] 4.0 Zwróci listę kategorii na określone żądanie użytkownika
+- :white_check_mark: 4.0 Zwróci listę kategorii na określone żądanie użytkownika
 
-- [x] 4.5 Zwróci listę produktów wg żądanej kategorii
+- :white_check_mark: 4.5 Zwróci listę produktów wg żądanej kategorii
 
-- [ ] 5.0 Aplikacja obsłuży dodatkowo jedną z platform: Slack, Messenger,
+- :x: 5.0 Aplikacja obsłuży dodatkowo jedną z platform: Slack, Messenger,
 Webex
 
 **link: https://hub.docker.com/r/blato122/ex3**
+
+Kod: ex3
+
+Zadanie zrobione przed otrzymaniem szablonu z wytycznymi.
 
 **How to run the Discord bot:**
 - Pull the Docker image: docker pull blato122/ex3

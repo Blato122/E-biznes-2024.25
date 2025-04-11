@@ -2,23 +2,27 @@
 
 Należy stworzyć aplikację na frameworku Play w Scali 3.
 
-- [x] 3.0 Należy stworzyć kontroler do Produktów
+- :white_check_mark: 3.0 Należy stworzyć kontroler do Produktów
 
-- [x] 3.5 Do kontrolera należy stworzyć endpointy zgodnie z CRUD - dane
+- :white_check_mark: 3.5 Do kontrolera należy stworzyć endpointy zgodnie z CRUD - dane
 pobierane z listy
 
-- [x] 4.0 Należy stworzyć kontrolery do Kategorii oraz Koszyka + endpointy
+- :white_check_mark: 4.0 Należy stworzyć kontrolery do Kategorii oraz Koszyka + endpointy
 zgodnie z CRUD
 
-- [x] 4.5 Należy aplikację uruchomić na dockerze (stworzyć obraz) oraz dodać
+- :white_check_mark: 4.5 Należy aplikację uruchomić na dockerze (stworzyć obraz) oraz dodać
 skrypt uruchamiający aplikację via ngrok
 
-- [x] 5.0 Należy dodać konfigurację CORS dla dwóch hostów dla metod CRUD
+- :white_check_mark: 5.0 Należy dodać konfigurację CORS dla dwóch hostów dla metod CRUD
 
 Kontrolery mogą bazować na listach zamiast baz danych. CRUD: show all,
 show by id (get), update (put), delete (delete), add (post).
 
 **Link: https://hub.docker.com/r/blato122/ex2**
+
+Kod: ex2
+
+Zadanie zrobione przed otrzymaniem szablonu z wytycznymi.
 
 **Pull the latest image from Docker Hub:**
 * Pull the latest image from Docker Hub: docker pull blato122/ex2
