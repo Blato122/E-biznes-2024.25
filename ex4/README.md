@@ -7,7 +7,7 @@ za pomocą modeli. Jako bazę danych można wybrać dowolną, sugerowałbym
 jednak pozostać przy sqlite.
 
 - [x] 3.0 Należy stworzyć aplikację we frameworki echo w j. Go, która będzie
-miała kontroler Produktów zgodny z CRUD
+miała kontroler Produktów zgodny z CRUD - [Link do commita 1](https://github.com/Blato122/E-Biznes-2024.25/ex4/commit/2b4ef841e72ec8af159ed649a1778f185b672798)
 - [ ] 3.5 Należy stworzyć model Produktów wykorzystując gorm oraz
 wykorzystać model do obsługi produktów (CRUD) w kontrolerze (zamiast
 listy)
