@@ -14,6 +14,6 @@ listy) - [Link do commita 2](https://github.com/Blato122/E-Biznes-2024.25/commit
 - :white_check_mark: 4.0 Należy dodać model Koszyka oraz dodać odpowiedni endpoint - [Link do commita 3](https://github.com/Blato122/E-Biznes-2024.25/commit/f77a44b9e445758d4dbc97696b4d65541215e085)
 - :white_check_mark: 4.5 Należy stworzyć model kategorii i dodać relację między kategorią,
 a produktem - [Link do commita 4](https://github.com/Blato122/E-Biznes-2024.25/commit/4b7440142a7d78346696a915632ff70138cb3d3c)
-- :white_check_mark: 5.0 pogrupować zapytania w gorm’owe scope'y - [Link do commita 5](https://github.com/Blato122/E-Biznes-2024.25/commit/)
+- :white_check_mark: 5.0 pogrupować zapytania w gorm’owe scope'y - [Link do commita 5](https://github.com/Blato122/E-Biznes-2024.25/commit/4f389fcdb21fef1f00e2b37e1c1d33f51b4c81aa)
 
 Kod: ex4
