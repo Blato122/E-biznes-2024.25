@@ -25,7 +25,6 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-// Custom command for logging into Sauce Demo
 Cypress.Commands.add('loginToSauceDemo', (username = 'standard_user', password = 'secret_sauce') => {
     cy.visit('/');
     cy.get('#user-name').type(username);
