@@ -19,6 +19,6 @@ projektu z minimum 50 asercjami - [Link do commita 3](https://github.com/Blato12
 minimum jednym scenariuszem negatywnym per endpoint - [Link do commita 4](https://github.com/Blato122/E-Biznes-2024.25/commit/) 
 - :grey_question: 5.0 Należy uruchomić testy funkcjonalne na Browserstacku - [Link do commita 5](https://github.com/Blato122/E-Biznes-2024.25/commit/167a0ee5cb2bd36a9558aeb6f91b6c76e706a5fa) 
 
-4.0 - [link do testów jednostkowych]()
-4.5 - [link do testów endpointów]()
+4.0 - [link do testów jednostkowych](https://github.com/Blato122/E-biznes-2024.25/blob/main/ex5/client/src/contexts/CartContext.test.jsx)
+4.5 - [link do testów endpointów](https://github.com/Blato122/E-biznes-2024.25/blob/main/ex5/server/api.test.js)
 5.0 - [link do Browserstacka](https://automate.browserstack.com/dashboard/v2/builds/c5808e2d2a2750bc620dadabf7a327f7cf85068b) - a lot of timeouts (?)
