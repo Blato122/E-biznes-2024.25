@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext } from 'react';
 
 // context with default values
-const CartContext = createContext({
+export const CartContext = createContext({
   cartItems: [],
   addToCart: () => {},
   removeFromCart: () => {},
