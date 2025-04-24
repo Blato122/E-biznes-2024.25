@@ -17,7 +17,7 @@ asercji - [Link do commita 2](https://github.com/Blato122/E-Biznes-2024.25/commi
 projektu z minimum 50 asercjami - [Link do commita 3](https://github.com/Blato122/E-Biznes-2024.25/commit/e6b3ec6a21aa13babaca6f1b3c3709b3535c472a) 
 - :white_check_mark: 4.5 Należy dodać testy API, należy pokryć wszystkie endpointy z
 minimum jednym scenariuszem negatywnym per endpoint - [Link do commita 4](https://github.com/Blato122/E-Biznes-2024.25/commit/) 
-- :question: 5.0 Należy uruchomić testy funkcjonalne na Browserstacku - [Link do commita 5](https://github.com/Blato122/E-Biznes-2024.25/commit/) 
+- :question: 5.0 Należy uruchomić testy funkcjonalne na Browserstacku - [Link do commita 5](https://github.com/Blato122/E-Biznes-2024.25/commit/167a0ee5cb2bd36a9558aeb6f91b6c76e706a5fa) 
 
 4.0 - [link do testów jednostkowych]()
 4.5 - [link do testów endpointów]()
