@@ -1,1 +1,5 @@
 node_modules
+browserstack.json
+tmpBstackPackages
+npm_install_debug.log
+local.log

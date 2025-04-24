@@ -1,1 +1,10 @@
-{}
+{
+  "name": "ex6-functional-tests",
+  "version": "1.0.0",
+  "scripts": {
+    "test:browserstack": "browserstack-cypress run"
+  },
+  "devDependencies": {
+    "browserstack-cypress-cli": "^1.32.7"
+  }
+}
