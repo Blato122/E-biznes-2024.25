@@ -1,6 +1,6 @@
 package main
 
-// linter test
+// linter test 2
 
 import (
 	"encoding/json"
