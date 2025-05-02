@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# place this file in: E-biznes-2024.25/.git/hooks/pre-commit
+# also, give it execute permissions: chmod +x E-biznes-2024.25/.git/hooks/pre-commit
+
+# Pre-commit hook that runs golangci-lint on staged Go files within the ex5/server directory.
+# It will run every time git commit is executed anywhere within the E-biznes-2024.25 repository.
+# But script is designed to only act on files within the ex5/server directory.
+
+# server directory relative to the git root
+SERVER_DIR="ex5/server"
+
+echo "Running golangci-lint for $SERVER_DIR..."
+
+# find staged Go files within the server directory
+STAGED_GO_FILES=$(git diff --cached --name-only --diff-filter=ACM "$SERVER_DIR" | grep '\.go$')
+
+if [ -z "$STAGED_GO_FILES" ]; then
+  echo "No Go files staged for commit in $SERVER_DIR."
+  exit 0
+fi
+
+ORIGINAL_PWD=$(pwd)
+cd "$SERVER_DIR" || exit 1
+
+RELATIVE_STAGED_FILES=$(echo "$STAGED_GO_FILES" | sed "s|^$SERVER_DIR/||")
+golangci-lint run --fix $RELATIVE_STAGED_FILES
+LINT_RESULT=$?
+
+# change back to the original directory
+cd "$ORIGINAL_PWD" || exit 1
+
+if [ $LINT_RESULT -ne 0 ]; then
+  echo "-------------------------------------------------------"
+  echo "golangci-lint found issues in $SERVER_DIR."
+  echo "Please fix them before committing."
+  echo "Attempting to stage fixes..."
+  echo "-------------------------------------------------------"
+  # re-add potentially fixed files using the original full paths
+  echo "$STAGED_GO_FILES" | xargs git add
+  exit 1
+fi
+
+echo "-------------------------------------------------------"
+echo "golangci-lint passed for $SERVER_DIR."
+echo "Staging potential auto-fixes..."
+echo "-------------------------------------------------------"
+# re-add potentially fixed files (if --fix was used and successful)
+echo "$STAGED_GO_FILES" | xargs git add
+
+exit 0
