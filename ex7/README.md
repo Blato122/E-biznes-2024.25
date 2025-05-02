@@ -18,6 +18,12 @@ w kodzie w Sonarze (kod aplikacji serwerowej) - [Link do commita 4](https://gith
 - :x: 5.0 Należy wyeliminować wszystkie błędy oraz zapaszki w kodzie
 aplikacji klienckiej - [Link do commita 5](https://github.com/Blato122/E-Biznes-2024.25/commit/)
 
-https://golangci-lint.run/
-https://github.com/pinterest/ktlint
-https://scalameta.org/scalafmt/docs/installation.html
+[Link do wyników z Sonarclouda](https://sonarcloud.io/summary/overall?id=Blato122_E-biznes-2024.25)
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Blato122_E-biznes-2024.25&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Blato122_E-biznes-2024.25)
+
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Blato122_E-biznes-2024.25&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Blato122_E-biznes-2024.25)
+
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Blato122_E-biznes-2024.25&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=Blato122_E-biznes-2024.25)
+
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Blato122_E-biznes-2024.25&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Blato122_E-biznes-2024.25)
