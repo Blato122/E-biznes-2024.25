@@ -58,6 +58,7 @@ const Payments = () => {
         navigate('/');
       }, 3000);
     } catch (error) {
+      console.error("Payment failed:", error);
       setStatus('error');
     }
   };
