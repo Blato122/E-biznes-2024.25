@@ -1,5 +1,7 @@
 package main
 
+// linter test
+
 import (
 	"encoding/json"
 	"log"
@@ -62,7 +64,10 @@ func corsMiddleware(next http.HandlerFunc) http.HandlerFunc {
 // handles health check endpoint
 func handleHealth(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{"status": "healthy"})
+	err := json.NewEncoder(w).Encode(map[string]string{"status": "healthy"})
+    if err != nil {
+		log.Printf("Error encoding health status: %v", err)
+	}
 }
 
 // handles GET requests for products
@@ -104,5 +109,8 @@ func handlePayments(w http.ResponseWriter, r *http.Request) {
 	// success response
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(map[string]string{"status": "success"})
+	err = json.NewEncoder(w).Encode(map[string]string{"status": "success"})
+	if err != nil {
+		log.Printf("Error encoding health status: %v", err)
+	}
 }
