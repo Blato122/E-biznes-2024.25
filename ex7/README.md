@@ -8,15 +8,15 @@ dodać widżety sonarowe do README w repozytorium dane projektu z
 wynikami.
 
 - :white_check_mark: 3.0 Należy dodać lintera do odpowiedniego kodu aplikacji serwerowej w
-hookach gita
-- :x: 3.5 Należy wyeliminować wszystkie bugi w kodzie w Sonarze (kod
-aplikacji serwerowej)
+hookach gita - [Link do commita 1](https://github.com/Blato122/E-Biznes-2024.25/commit/c9235fa6b04b70ecc0342ac56335e5f1e807bc70) + [Link do commita ze screenami działania](https://github.com/Blato122/E-Biznes-2024.25/commit/80f2d3af725767c0b39b03d72d9e844f33f89b78)
+- :white_check_mark: 3.5 Należy wyeliminować wszystkie bugi w kodzie w Sonarze (kod
+aplikacji serwerowej) - [Link do commita 2](https://github.com/Blato122/E-Biznes-2024.25/commit/b4dd98a297fa13b9be96781238d9d39b1ca45ba6)
 - :x: 4.0 Należy wyeliminować wszystkie zapaszki w kodzie w Sonarze (kod
-aplikacji serwerowej)
+aplikacji serwerowej) - [Link do commita 3](https://github.com/Blato122/E-Biznes-2024.25/commit/)
 - :x: 4.5 Należy wyeliminować wszystkie podatności oraz błędy bezpieczeństwa
-w kodzie w Sonarze (kod aplikacji serwerowej)
+w kodzie w Sonarze (kod aplikacji serwerowej) - [Link do commita 4](https://github.com/Blato122/E-Biznes-2024.25/commit/)
 - :x: 5.0 Należy wyeliminować wszystkie błędy oraz zapaszki w kodzie
-aplikacji klienckiej
+aplikacji klienckiej - [Link do commita 5](https://github.com/Blato122/E-Biznes-2024.25/commit/)
 
 https://golangci-lint.run/
 https://github.com/pinterest/ktlint
