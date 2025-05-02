@@ -1,11 +1,15 @@
 package main
 
-// linter test 2
-
 import (
 	"encoding/json"
 	"log"
 	"net/http"
+)
+
+// sonarcloud suggested fixes:
+const (
+    contentTypeHeader = "Content-Type"
+    jsonContentType   = "application/json"
 )
 
 type Product struct {
@@ -63,7 +67,7 @@ func corsMiddleware(next http.HandlerFunc) http.HandlerFunc {
 
 // handles health check endpoint
 func handleHealth(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set(contentTypeHeader, jsonContentType)
 	err := json.NewEncoder(w).Encode(map[string]string{"status": "healthy"})
     if err != nil {
 		log.Printf("Error encoding health status: %v", err)
@@ -79,7 +83,7 @@ func handleProducts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set(contentTypeHeader, jsonContentType)
 	log.Printf("Sending product data with %d products", len(products))
 	err := json.NewEncoder(w).Encode(products)
 	if err != nil {
@@ -107,7 +111,7 @@ func handlePayments(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Payment received: %+v", payment)
 
 	// success response
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set(contentTypeHeader, jsonContentType)
 	w.WriteHeader(http.StatusOK)
 	err = json.NewEncoder(w).Encode(map[string]string{"status": "success"})
 	if err != nil {
