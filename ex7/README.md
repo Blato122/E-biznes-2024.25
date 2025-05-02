@@ -14,7 +14,7 @@ aplikacji serwerowej) - [Link do commita 2](https://github.com/Blato122/E-Biznes
 - :x: 4.0 Należy wyeliminować wszystkie zapaszki w kodzie w Sonarze (kod
 aplikacji serwerowej) - [Link do commita 3](https://github.com/Blato122/E-Biznes-2024.25/commit/7aedc9f2882f38fa6fa4034b3a32b6688a035e81)
 - :x: 4.5 Należy wyeliminować wszystkie podatności oraz błędy bezpieczeństwa
-w kodzie w Sonarze (kod aplikacji serwerowej) - [Link do commita 4](https://github.com/Blato122/E-Biznes-2024.25/commit/)
+w kodzie w Sonarze (kod aplikacji serwerowej) - [Link do commita 4](https://github.com/Blato122/E-Biznes-2024.25/commit/7aedc9f2882f38fa6fa4034b3a32b6688a035e81)
 - :x: 5.0 Należy wyeliminować wszystkie błędy oraz zapaszki w kodzie
 aplikacji klienckiej - [Link do commita 5](https://github.com/Blato122/E-Biznes-2024.25/commit/)
 
