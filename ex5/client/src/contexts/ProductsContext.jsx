@@ -1,8 +1,9 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { getProducts } from '../services/api';
 
 // context with default values
-const ProductsContext = createContext({
+export const ProductsContext = createContext({
   products: [],
   loading: true,
   error: null,
@@ -17,11 +18,14 @@ export const ProductsProvider = ({ children }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setLoading(true);
+        setError(null);
         const data = await getProducts();
         setProducts(data);
-        setLoading(false);
       } catch (err) {
-        setError('Failed to fetch products');
+        console.error("Failed to fetch products:", err);
+        setError(err.message || 'Failed to fetch products');
+      } finally {
         setLoading(false);
       }
     };
@@ -29,11 +33,11 @@ export const ProductsProvider = ({ children }) => {
     fetchProducts();
   }, []);
 
-  const contextValue = {
+  const contextValue = useMemo(() => ({
     products,
     loading,
-    error,
-  };
+    error
+  }), [products, loading, error]);
 
   return (
     <ProductsContext.Provider value={contextValue}>
@@ -42,11 +46,8 @@ export const ProductsProvider = ({ children }) => {
   );
 };
 
-// custom hook for using the products context
-export const useProducts = () => {
-  const context = useContext(ProductsContext);
-  if (!context) {
-    throw new Error('useProducts must be used within a ProductsProvider');
-  }
-  return context;
+ProductsProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
+
+export const useProducts = () => useContext(ProductsContext);

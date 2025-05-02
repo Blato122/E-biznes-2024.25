@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext } from 'react';
-import PropTypes from 'prop-types'; // Import PropTypes
+import PropTypes from 'prop-types';
 
 // context with default values
 export const CartContext = createContext({
@@ -14,7 +14,6 @@ export const CartContext = createContext({
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  // Wrap callbacks in useCallback to prevent unnecessary re-renders if passed down
   const addToCart = useCallback((product) => {
     setCartItems(prevItems => {
       const existingItem = prevItems.find(item => item.id === product.id);
@@ -28,7 +27,7 @@ export const CartProvider = ({ children }) => {
         return [...prevItems, { ...product, quantity: 1 }];
       }
     });
-  }, []); // Empty dependency array means this function reference never changes
+  }, []);
 
   const removeFromCart = useCallback((productId) => {
     setCartItems(prevItems =>
@@ -40,13 +39,13 @@ export const CartProvider = ({ children }) => {
     setCartItems([]);
   }, []);
 
-  // Calculate cartItemsCount based on cartItems
+  // calculate cartItemsCount based on cartItems
   const cartItemsCount = useMemo(() => {
       return cartItems.reduce((count, item) => count + item.quantity, 0);
   }, [cartItems]);
 
 
-  // Memoize the context value object
+  // memoize the context value object
   const contextValue = useMemo(() => ({
     cartItems,
     addToCart,
@@ -62,10 +61,9 @@ export const CartProvider = ({ children }) => {
   );
 };
 
-// Add PropTypes validation
+// add PropTypes validation
 CartProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-// Custom hook to use the cart context
 export const useCart = () => useContext(CartContext);
