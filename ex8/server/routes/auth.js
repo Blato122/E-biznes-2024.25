@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 const axios = require('axios');
+const { User } = require('../db');
 require('dotenv').config();
 
 // 4.0
@@ -118,6 +119,7 @@ router.get('/google', (req, res) => {
 });
 
 // GET /api/auth/google/callback - handle Google's OAuth2 callback
+// Google OAuth callback
 router.get('/google/callback', async (req, res) => {
     const { code } = req.query;
 
@@ -131,26 +133,31 @@ router.get('/google/callback', async (req, res) => {
         });
 
         const payload = ticket.getPayload();
-        const { sub: googleId, email, name } = payload;
-        let username = name
+        const { sub: googleId, email, name: username } = payload;
 
-        // check if user exists or create a new one
-        let user = users.find(u => u.googleId === googleId);
+        // find or create the user in the database
+        let user = await User.findOne({ where: { googleId } });
+        // console.log('User \n\n\n\n\nfound:', user);
         if (!user) {
-            user = { id: nextUserId++, username, googleId, email };
-            users.push(user);
+            user = await User.create({ username, email, googleId });
+            // console.log('New user \n\n\n\n\ncreated:', user);
         }
 
         const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        // console.log('Generated \n\n\n\n\ntoken:', token);
+
+        // save the token in the database
+        user.token = token;
+        await user.save();
+        // console.log('User after saving\n\n\n\n\n token:', user);
 
         // set the token in an HTTP-only cookie
         res.cookie('authToken', token, {
-            httpOnly: true, // prevent access via JavaScript
-            secure: false, // normally would be true
-            sameSite: 'Strict', // prevent cross-site requests
+            httpOnly: true,
+            secure: false,
+            sameSite: 'Strict',
         });
 
-        // redirect back to the React app
         res.redirect('http://localhost:3000');
     } catch (error) {
         console.error('Error during Google OAuth2 callback:', error);
@@ -158,7 +165,7 @@ router.get('/google/callback', async (req, res) => {
     }
 });
 
-router.get('/me', (req, res) => {
+router.get('/me', async (req, res) => {
     const token = req.cookies.authToken;
 
     if (!token) {
@@ -167,7 +174,9 @@ router.get('/me', (req, res) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = users.find(u => u.id === decoded.userId);
+
+        // find the user in the database
+        const user = await User.findOne({ where: { id: decoded.userId, token } });
 
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
@@ -180,7 +189,24 @@ router.get('/me', (req, res) => {
     }
 });
 
-router.post('/logout', (req, res) => {
+router.post('/logout', async (req, res) => {
+    const token = req.cookies.authToken;
+
+    if (token) {
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+            // find the user and clear the token
+            const user = await User.findOne({ where: { id: decoded.userId, token } });
+            if (user) {
+                user.token = null;
+                await user.save();
+            }
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
+    }
+
     res.clearCookie('authToken', {
         httpOnly: true,
         secure: false,
@@ -215,23 +241,27 @@ router.get('/github/callback', async (req, res) => {
 
         const { id: githubId, login: username, email } = userResponse.data;
 
-        // check if user exists or create a new one
-        let user = users.find(u => u.githubId === githubId);
+        // find or create the user in the database
+        let user = await User.findOne({ where: { githubId } });
         if (!user) {
-            user = { id: nextUserId++, username, githubId, email };
-            users.push(user);
+            user = await User.create({ username, email, githubId });
         }
 
-        // generate JWT token
+        // generate a new JWT token
         const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-        // set token in HTTP-only cookie
+        // save the token in the database
+        user.token = token;
+        await user.save();
+
+        // set the token in an HTTP-only cookie
         res.cookie('authToken', token, {
             httpOnly: true,
             secure: false,
             sameSite: 'Strict',
         });
 
+        // redirect back to the React app
         res.redirect('http://localhost:3000');
     } catch (error) {
         console.error('GitHub OAuth error:', error);
