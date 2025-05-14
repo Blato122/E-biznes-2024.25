@@ -85,6 +85,18 @@ function App() {
     );
   };
 
+  const GitHubSignInButton = () => {
+    const handleGitHubSignIn = () => {
+        window.location.href = 'http://localhost:3001/api/auth/github';
+    };
+
+    return (
+        <button onClick={handleGitHubSignIn} style={{ padding: '10px 20px', fontSize: '16px', margin: '10px' }}>
+            Sign in with GitHub
+        </button>
+    );
+};
+
   return (
     <div className="App">
       <header className="App-header">
@@ -129,6 +141,7 @@ function App() {
             {/* Google Sign-In Button */}
             <div style={{ textAlign: 'center', marginTop: '50px' }}>
               <GoogleSignInButton />
+              <GitHubSignInButton />
             </div>
           </>
         )}

@@ -13,5 +13,5 @@ uri)-react.
 - :white_check_mark: 3.0 logowanie przez aplikację serwerową (bez Oauth2) - [Link do commita 1](https://github.com/Blato122/E-Biznes-2024.25/commit/60ddcfcc6d6b60ee3ca9a62811e58fe4c70032ee)
 - :white_check_mark: 3.5 rejestracja przez aplikację serwerową (bez Oauth2) - [Link do commita 2](https://github.com/Blato122/E-Biznes-2024.25/commit/80ea28474c2ae67f09919c70dc2768660b150f5f)
 - :white_check_mark: 4.0 logowanie via Google OAuth2 - [Link do commita 3](https://github.com/Blato122/E-Biznes-2024.25/commit/f9874887f378fba11dda9e4d34daf740473e4ce9)
-- :x: 4.5 logowanie via Facebook lub Github OAuth2 - [Link do commita 4](https://github.com/Blato122/E-Biznes-2024.25/commit/)
+- :white_check_mark: 4.5 logowanie via Facebook lub Github OAuth2 - [Link do commita 4](https://github.com/Blato122/E-Biznes-2024.25/commit/)
 - :x: 5.0 zapisywanie danych logowania OAuth2 po stronie serwera - [Link do commita 5](https://github.com/Blato122/E-Biznes-2024.25/commit/)

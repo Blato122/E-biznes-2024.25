@@ -3,6 +3,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
+const axios = require('axios');
 require('dotenv').config();
 
 // 4.0
@@ -82,6 +83,8 @@ router.post('/login', async (req, res) => {
 
     if (user.googleId) {
         return res.status(401).json({ message: 'Login using Google account' }); // no password, use google account
+    } else if (user.githubId) {
+        return res.status(401).json({ message: 'Login using Github account' }); // no password, use github account
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
@@ -184,6 +187,56 @@ router.post('/logout', (req, res) => {
         sameSite: 'Strict',
     });
     res.json({ message: 'Logged out successfully' });
+});
+
+// GitHub OAuth
+router.get('/github', (req, res) => {
+    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&redirect_uri=http://localhost:3001/api/auth/github/callback&scope=user:email`;
+    res.redirect(githubAuthUrl);
+});
+
+router.get('/github/callback', async (req, res) => {
+    const { code } = req.query;
+
+    try {
+        const tokenResponse = await axios.post('https://github.com/login/oauth/access_token', {
+            client_id: process.env.GITHUB_CLIENT_ID,
+            client_secret: process.env.GITHUB_CLIENT_SECRET,
+            code,
+        }, {
+            headers: { Accept: 'application/json' },
+        });
+
+        const accessToken = tokenResponse.data.access_token;
+
+        const userResponse = await axios.get('https://api.github.com/user', {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+
+        const { id: githubId, login: username, email } = userResponse.data;
+
+        // check if user exists or create a new one
+        let user = users.find(u => u.githubId === githubId);
+        if (!user) {
+            user = { id: nextUserId++, username, githubId, email };
+            users.push(user);
+        }
+
+        // generate JWT token
+        const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        // set token in HTTP-only cookie
+        res.cookie('authToken', token, {
+            httpOnly: true,
+            secure: false,
+            sameSite: 'Strict',
+        });
+
+        res.redirect('http://localhost:3000');
+    } catch (error) {
+        console.error('GitHub OAuth error:', error);
+        res.status(500).json({ message: 'Authentication failed' });
+    }
 });
 
 module.exports = router;
