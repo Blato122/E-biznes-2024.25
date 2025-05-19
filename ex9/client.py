@@ -1,8 +1,17 @@
 import streamlit as st
 import requests
 import json
+import random
 
 BACKEND_URL = "http://127.0.0.1:8000/chat" # URL of the FastAPI backend
+
+CLIENT_OPENING_PHRASES = [
+    "Hello! How can I assist you with our shop today?",
+    "Welcome to our store's chat! What can I help you find?",
+    "Hi there! Ready to explore our products or have a question?",
+    "Good day! I'm here to help with any questions about our shop.",
+    "Hey! What brings you to our chat service today?"
+]
 
 st.set_page_config(page_title="Chatbot", layout="centered")
 st.title("E-biznes ex9")
@@ -10,6 +19,9 @@ st.title("E-biznes ex9")
 # initialize chat history in session state if it doesn't exist
 if "messages" not in st.session_state:
     st.session_state.messages = []
+    if CLIENT_OPENING_PHRASES:
+        opening_message = random.choice(CLIENT_OPENING_PHRASES)
+        st.session_state.messages.append({"role": "assistant", "content": opening_message})
 
 # display past messages
 for message in st.session_state.messages:
