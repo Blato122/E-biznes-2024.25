@@ -27,7 +27,7 @@ async def chat(user_input: UserMessage):
     user_message = user_input.message
 
     if not user_message:
-        return BotResponse(reply="", error="ERROR: No message provided.")
+        return BotResponse(reply="", error="No message provided.")
 
     chat_response = await get_response(user_message)
 
