@@ -14,7 +14,7 @@ frontendowego interfejsu - [Link do commita 2](https://github.com/Blato122/E-Biz
 - :white_check_mark: 4.0 stworzyć listę 5 różnych otwarć oraz zamknięć rozmowy - [Link do commita 3](https://github.com/Blato122/E-Biznes-2024.25/commit/18df76dfa5f7558371d9b6bb5b7360bc52fdb335) 
 - :white_check_mark: 4.5 filtrowanie po zagadnieniach związanych ze sklepem (np.
 ograniczenie się jedynie do ubrań oraz samego sklepu) do GPT - [Link do commita 4](https://github.com/Blato122/E-Biznes-2024.25/commit/ecf8cb605570c984ca403910f8ff0b0252ee5294) 
-- :white_check_mark: 5.0 filtrowanie odpowiedzi po sentymencie - [Link do commita 5](https://github.com/Blato122/E-Biznes-2024.25/commit/)
+- :white_check_mark: 5.0 filtrowanie odpowiedzi po sentymencie - [Link do commita 5](https://github.com/Blato122/E-Biznes-2024.25/commit/451ba5bb2c1ce67521ad9a5076bf05804fb01601)
 
 In the ex9 directory:
 - run the client: streamlit run client.py
