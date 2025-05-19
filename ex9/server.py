@@ -39,6 +39,13 @@ CLOSING_PHRASES = [
     "Closing the chat now. Have a good one!"
 ]
 
+# define the system prompt for the shop assistant (4.5)
+SHOP_SYSTEM_PROMPT = """You are a helpful assistant for an online clothing store.
+Your primary goal is to answer questions and provide information related to our clothing products, fashion advice, our store's services (like shipping, returns, opening hours), and promotions.
+Please politely decline to answer questions that are not related to clothing, fashion, or our store. You can say something like, 'I can only help with questions about our clothing store and products.'
+Do not engage in conversations about other topics.
+"""
+
 # routes
 @app.post("/chat", response_model=BotResponse)
 async def chat(user_input: UserMessage):
@@ -74,7 +81,7 @@ async def get_response(user_message: str) -> str:
             # llama-3.3-70b-versatile
             model="meta-llama/llama-4-maverick-17b-128e-instruct",
             messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "system", "content": SHOP_SYSTEM_PROMPT},
                 {"role": "user", "content": user_message}
             ]
         )
