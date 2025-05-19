@@ -6,6 +6,19 @@ from typing import Optional
 from dotenv import load_dotenv
 import random
 
+# for sentiment analysis (5.0)
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+try:
+    nltk.data.find('sentiment/vader_lexicon.zip')
+except LookupError:
+    print("VADER lexicon not found. Downloading...")
+    nltk.download('vader_lexicon')
+    print("VADER lexicon downloaded.")
+
+analyzer = SentimentIntensityAnalyzer()
+
 # load environment variables from .env file (GROQ_API_KEY)
 load_dotenv()
 
@@ -57,6 +70,19 @@ async def chat(user_input: UserMessage):
     try:
         llm_response_content = await get_response(user_message)
         final_reply = llm_response_content
+
+        sentiment_scores = analyzer.polarity_scores(llm_response_content)
+        compound_score = sentiment_scores['compound']
+
+        # define a threshold for negative sentiment. VADER's compound score is from -1 to +1. -0.05 is a common threshold for slightly negative.
+        NEGATIVE_THRESHOLD = -0.05 
+
+        print(f"LLM Response: '{llm_response_content}', Sentiment Score: {compound_score}") # debugging
+
+        if compound_score < NEGATIVE_THRESHOLD:
+            # if the sentiment is too negative, replace with a polite, neutral message
+            final_reply = "I understand. Is there anything specific about our products or store I can help you with right now?"
+            print(f"Original response was too negative. Replaced with: '{final_reply}'") # debugging
 
         user_message_lower = user_message.lower()
         closing_keywords = ["bye", "goodbye", "thank you", "thanks", "that's all", "appreciate it", "end chat", "finish"]
