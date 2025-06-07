@@ -54,3 +54,32 @@ jobs:
         file: ./ex5/server.Dockerfile
         push: true
         tags: blato122/ex5-server:latest
+  notify:
+    runs-on: ubuntu-latest
+    needs: [build-client, build-server]
+    if: always()
+    
+    steps:
+    - name: Send email notification
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.gmail.com
+        server_port: 587
+        username: ${{ secrets.EMAIL_USERNAME }}
+        password: ${{ secrets.EMAIL_PASSWORD }}
+        subject: "Build Status: ${{ needs.build-client.result == 'success' && needs.build-server.result == 'success' && '✅ SUCCESS' || '❌ FAILED' }} - E-Biznes Project"
+        to: ${{ secrets.EMAIL_TO }}
+        from: ${{ secrets.EMAIL_USERNAME }}
+        body: |
+          Build completed for E-Biznes project repository.
+          
+          Commit: ${{ github.sha }}
+          Branch: ${{ github.ref_name }}
+          Actor: ${{ github.actor }}
+          
+          Client Build Status: ${{ needs.build-client.result }}
+          Server Build Status: ${{ needs.build-server.result }}
+          
+          Time: ${{ github.event.head_commit.timestamp }}
+          
+          View workflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
