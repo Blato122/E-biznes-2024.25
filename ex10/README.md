@@ -20,7 +20,7 @@ chmurę - [Link do commita 4](https://github.com/Blato122/E-Biznes-2024.25/commi
 (funkcjonalnych) jako krok w Actions - [Link do commita 5](https://github.com/Blato122/E-Biznes-2024.25/commit/)
 
 In 'E-biznes-2024.25/ex5' directory:
-- docker build -t blato122/ex5-client:latest -f client.Dockerfile .
+- docker build -t blato122/ex5-client:latest -f client.Dockerfile . --build-arg REACT_APP_API_URL="https://ex5-server-onyu.onrender.com"
 - docker build -t blato122/ex5-server:latest -f server.Dockerfile .
 - docker login
 - docker push blato122/ex5-client:latest
@@ -30,3 +30,6 @@ Render:
 - create a free account
 - new web service
 - from existing image
+
+Client: https://ex5-client.onrender.com
+Server: https://ex5-server-onyu.onrender.com
