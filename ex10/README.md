@@ -12,7 +12,7 @@ na chmurze.
 - :white_check_mark: 3.0 Należy stworzyć odpowiednie instancje po stronie chmury na
 dockerze - [Link do commita 1](https://github.com/Blato122/E-Biznes-2024.25/commit/a5a3d94c7a07ba4436c544740acb6a528367209b)
 - :white_check_mark: 3.5 Stworzyć odpowiedni pipeline w Github Actions do budowania
-aplikacji (np. via fatjar) - [Link do commita 2](https://github.com/Blato122/E-Biznes-2024.25/commit/)
+aplikacji (np. via fatjar) - [Link do commita 2](https://github.com/Blato122/E-Biznes-2024.25/commit/91a9b3e10bba1c2e27ea80dd72829464c419bd57)
 - :x: 4.0 Dodać notyfikację mailową o zbudowaniu aplikacji - [Link do commita 3](https://github.com/Blato122/E-Biznes-2024.25/commit/)
 - :x: 4.5 Dodać krok z deploymentem aplikacji serwerowej oraz klienckiej na
 chmurę - [Link do commita 4](https://github.com/Blato122/E-Biznes-2024.25/commit/)
